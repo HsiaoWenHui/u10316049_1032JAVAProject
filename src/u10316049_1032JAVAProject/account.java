@@ -16,14 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class account extends JFrame{
-		
+		//這裡Panel 拿來Label和 TextField
 		JPanel food = new JPanel(new GridLayout(4,1,0,0));
 		JPanel dress = new JPanel(new GridLayout(4,1,0,0));
 		JPanel live = new JPanel(new GridLayout(4,1,0,0));
 		JPanel communication = new JPanel(new GridLayout(4,1,0,0));
 		JPanel sport = new JPanel(new GridLayout(4,1,0,0));
 		JPanel entertainment = new JPanel(new GridLayout(4,1,0,0));
-		
+		//輸入金額
 		JTextField tF = new JTextField(8);
 		JTextField tD = new JTextField(8);
 		JTextField tL = new JTextField(8);
@@ -43,9 +43,11 @@ public class account extends JFrame{
 		JLabel showC = new JLabel("請輸入金額");
 		JLabel showS = new JLabel("請輸入金額");
 		JLabel showE = new JLabel("請輸入金額");
+		//P1放食衣住行的Panel
 		JPanel p1 = new JPanel(new FlowLayout(FlowLayout.LEFT,5,10));
-		
+		//放設定清除鍵
 		JPanel text  = new JPanel(new GridLayout(2,1,0,0));
+		//放最後的 P1 text 和圓餅圖
 		JPanel all = new JPanel(new BorderLayout());
 		
 		JButton f = new JButton("輸入");
@@ -58,7 +60,7 @@ public class account extends JFrame{
 		JButton set = new JButton("設定");
 		JButton clean = new JButton("清除");
 	
-		
+		//設初始
 		double FF = 1,DD=1,LL=1,CC=1,SS=1,EE=1,total;
 		int  arcF,arcD,arcL,arcC,arcS,arcE;
 		circle cc = new circle();
@@ -114,6 +116,7 @@ public class account extends JFrame{
 		clean.addActionListener(new cleanListener());
 		
 	}
+	//按輸入後顯示輸入金額
 	private class fListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			String money = tF.getText();
@@ -163,7 +166,7 @@ public class account extends JFrame{
 	}
 	
 		
-	
+	//圓餅圖
 	private class circle extends JPanel{
 		
 		private static final long serialVersionUID = 1L;
@@ -171,7 +174,7 @@ public class account extends JFrame{
 		protected void paintComponent(Graphics g){
 			super.paintComponent(g);
 			total = FF+DD+LL+CC+SS+EE;
-		
+			//算角度
 			arcF = (int)((FF/total)*360);
 			arcD = (int)((DD/total)*360);
 			arcL = (int)((LL/total)*360);
@@ -179,7 +182,7 @@ public class account extends JFrame{
 			arcS = (int)((SS/total)*360);
 			arcE = (int)((EE/total)*360);
 
-			
+			//開始畫圖，並以顏色分別
 			g.setColor(Color.red);
 			g.fillArc(0,0,200,200,0,arcF);
 			g.setColor(Color.orange);
@@ -193,6 +196,7 @@ public class account extends JFrame{
 			g.setColor(Color.black);
 			g.fillArc(0,0,200,200,arcF+arcD+arcL+arcC+arcS,arcE);
 		}
+		//設定大小
 		@Override
 		  public Dimension getPreferredSize() {
 		    return new Dimension(200, 200);
@@ -200,9 +204,10 @@ public class account extends JFrame{
 	}
 
 
-	
+	//按下設定鍵後的動作
 	private class setListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
+			//讀取輸入數值
 			FF = Double.parseDouble(tF.getText());
 			DD = Double.parseDouble(tD.getText());
 			LL = Double.parseDouble(tL.getText());
@@ -211,7 +216,9 @@ public class account extends JFrame{
 			EE = Double.parseDouble(tE.getText());
 			
 			double total = FF+DD+LL+CC+SS+EE;
+			//重畫圓餅圖
 			cc.repaint();
+			//將double轉乘String並顯示
 			String f = String.valueOf((FF/total)*100);
 			String d = String.valueOf((DD/total)*100);
 			String l = String.valueOf((LL/total)*100);
@@ -227,6 +234,7 @@ public class account extends JFrame{
 		}
 
 	}
+	//講數值清除
 	private class cleanListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 				tF.setText(null);
@@ -243,6 +251,7 @@ public class account extends JFrame{
 				showE.setText("請輸入金額");
 		}
 	}
+	//框架
 	public static void main(String[] args){
 		account frame =new account();
 		frame.setTitle("u10316049_1032JAVAProject");
