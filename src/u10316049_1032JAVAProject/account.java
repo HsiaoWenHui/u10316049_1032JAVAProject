@@ -1,11 +1,22 @@
 package u10316049_1032JAVAProject;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class account extends JFrame{
+		
 		JPanel food = new JPanel(new GridLayout(4,1,0,0));
 		JPanel dress = new JPanel(new GridLayout(4,1,0,0));
 		JPanel live = new JPanel(new GridLayout(4,1,0,0));
@@ -20,24 +31,22 @@ public class account extends JFrame{
 		JTextField tS = new JTextField(8);
 		JTextField tE = new JTextField(8);
 		
-		JLabel F = new JLabel("食");
-		JLabel D = new JLabel("衣");
-		JLabel L = new JLabel("住");
-		JLabel C = new JLabel("行");
-		JLabel S = new JLabel("育");
-		JLabel E = new JLabel("樂");
-		JTextField showF = new JTextField(8);
-		JTextField showD = new JTextField(8);
-		JTextField showL = new JTextField(8);
-		JTextField showC = new JTextField(8);
-		JTextField showS = new JTextField(8);
-		JTextField showE = new JTextField(8);
+		JLabel F = new JLabel("食(紅)");
+		JLabel D = new JLabel("衣(橘)");
+		JLabel L = new JLabel("住(黃)");
+		JLabel C = new JLabel("行(綠)");
+		JLabel S = new JLabel("育(藍)");
+		JLabel E = new JLabel("樂(黑)");
+		JLabel showF = new JLabel("請輸入金額");
+		JLabel showD = new JLabel("請輸入金額");
+		JLabel showL = new JLabel("請輸入金額");
+		JLabel showC = new JLabel("請輸入金額");
+		JLabel showS = new JLabel("請輸入金額");
+		JLabel showE = new JLabel("請輸入金額");
 		JPanel p1 = new JPanel(new FlowLayout(FlowLayout.LEFT,5,10));
 		
-		JPanel p2 = new JPanel();
-		JPanel graph = new JPanel();
-		JPanel text  = new JPanel();
-		JPanel all = new JPanel();
+		JPanel text  = new JPanel(new GridLayout(2,1,0,0));
+		JPanel all = new JPanel(new BorderLayout());
 		
 		JButton f = new JButton("輸入");
 		JButton d = new JButton("輸入");
@@ -49,7 +58,11 @@ public class account extends JFrame{
 		JButton set = new JButton("設定");
 		JButton clean = new JButton("清除");
 	
-	
+		
+		double FF = 1,DD=1,LL=1,CC=1,SS=1,EE=1,total;
+		int  arcF,arcD,arcL,arcC,arcS,arcE;
+		circle cc = new circle();
+		
 	public account(){
 		
 		food.add(F);
@@ -83,35 +96,157 @@ public class account extends JFrame{
 		p1.add(communication);
 		p1.add(sport);
 		p1.add(entertainment);
-		
-		p2.add(graph,BorderLayout.NORTH);
-		p2.add(text,BorderLayout.SOUTH);
-		text.add(set,BorderLayout.WEST);
-		text.add(clean,BorderLayout.EAST);
+		text.add(set);
+		text.add(clean);
 		all.add(p1,BorderLayout.WEST);
-		all.add(p2,BorderLayout.EAST);
+		all.add(text,BorderLayout.SOUTH);
+		all.add(new circle(),BorderLayout.CENTER);
 		add(all);
+		
+		f.addActionListener(new fListener());
+		d.addActionListener(new dListener());
+		l.addActionListener(new lListener());
+		c.addActionListener(new cListener());
+		s.addActionListener(new sListener());
+		e.addActionListener(new eListener());
+		
 		set.addActionListener(new setListener());
 		clean.addActionListener(new cleanListener());
 		
 	}
-	private class setListener implements ActionListener{
+	private class fListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			
+			String money = tF.getText();
+			showF.setText(money);
+		}
+
+	}
+	private class dListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			String money = tD.getText();
+			showD.setText(money);
 			
 		}
 
 	}
+	private class lListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			String money = tL.getText();
+			showL.setText(money);
+			
+		}
 
+	}
+	private class cListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			String money = tC.getText();
+			showC.setText(money);
+			
+		}
+
+	}
+	private class sListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			String money = tS.getText();
+			showS.setText(money);
+			
+		}
+
+	}
+	private class eListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			String money = tE.getText();
+			showE.setText(money);
+			
+		}
+
+	}
+	
+		
+	
+	private class circle extends JPanel{
+		
+		private static final long serialVersionUID = 1L;
+		@Override
+		protected void paintComponent(Graphics g){
+			super.paintComponent(g);
+			total = FF+DD+LL+CC+SS+EE;
+		
+			arcF = (int)((FF/total)*360);
+			arcD = (int)((DD/total)*360);
+			arcL = (int)((LL/total)*360);
+			arcC = (int)((CC/total)*360);
+			arcS = (int)((SS/total)*360);
+			arcE = (int)((EE/total)*360);
+
+			
+			g.setColor(Color.red);
+			g.fillArc(0,0,200,200,0,arcF);
+			g.setColor(Color.orange);
+			g.fillArc(0,0,200,200,arcF,arcD);
+			g.setColor(Color.yellow);
+			g.fillArc(0,0,200,200,arcF+arcD,arcL);
+			g.setColor(Color.green);
+			g.fillArc(0,0,200,200,arcF+arcD+arcL,arcC);
+			g.setColor(Color.blue);
+			g.fillArc(0,0,200,200,arcF+arcD+arcL+arcC,arcS);
+			g.setColor(Color.black);
+			g.fillArc(0,0,200,200,arcF+arcD+arcL+arcC+arcS,arcE);
+		}
+		@Override
+		  public Dimension getPreferredSize() {
+		    return new Dimension(200, 200);
+		  }
+	}
+
+
+	
+	private class setListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			FF = Double.parseDouble(tF.getText());
+			DD = Double.parseDouble(tD.getText());
+			LL = Double.parseDouble(tL.getText());
+			CC = Double.parseDouble(tC.getText());
+			SS = Double.parseDouble(tS.getText());
+			EE = Double.parseDouble(tE.getText());
+			
+			double total = FF+DD+LL+CC+SS+EE;
+			cc.repaint();
+			String f = String.valueOf((FF/total)*100);
+			String d = String.valueOf((DD/total)*100);
+			String l = String.valueOf((LL/total)*100);
+			String c = String.valueOf((CC/total)*100);
+			String s = String.valueOf((SS/total)*100);
+			String E = String.valueOf((EE/total)*100);
+			showF.setText(f+"%");
+			showD.setText(d+"%");
+			showL.setText(l+"%");
+			showC.setText(c+"%");
+			showS.setText(s+"%");
+			showE.setText(E+"%");
+		}
+
+	}
 	private class cleanListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-				
+				tF.setText(null);
+				tD.setText(null);
+				tL.setText(null);
+				tC.setText(null);
+				tS.setText(null);
+				tE.setText(null);
+				showF.setText("請輸入金額");
+				showD.setText("請輸入金額");
+				showL.setText("請輸入金額");
+				showC.setText("請輸入金額");
+				showS.setText("請輸入金額");
+				showE.setText("請輸入金額");
 		}
 	}
 	public static void main(String[] args){
 		account frame =new account();
 		frame.setTitle("u10316049_1032JAVAProject");
-		frame.setSize(800,300);
+		frame.setSize(1000,300);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
